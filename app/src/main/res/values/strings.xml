@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">FishingShop</string>
+    <string name="acount_name">Đào Thanh Sơn</string>
+    <string name="number_phone">0888.26.3833</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

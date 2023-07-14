@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/id_item_home"
+            android:title="Home"
+            android:icon="@drawable/baseline_home_24"
+            />
+        <item
+            android:id="@+id/id_item_cart"
+            android:title="Giỏ hàng"
+            android:icon="@drawable/baseline_shopping_cart_24"
+            />
+        <item
+            android:id="@+id/id_item_purchase_history"
+            android:title="Lịch sử mua hàng"
+            android:icon="@drawable/baseline_history_24"
+            />
+        <item
+            android:id="@+id/id_item_chat"
+            android:title="Tin nhắn"
+            android:icon="@drawable/baseline_mark_unread_chat_alt_24"
+            />
+        <item
+            android:id="@+id/id_item_discount_codes"
+            android:title="Mã giảm giá"
+            android:icon="@drawable/baseline_discount_24"
+            />
+        <item
+            android:id="@+id/id_item_product_management"
+            android:title="Quản lý sản phẩm"
+            android:icon="@drawable/baseline_list_alt_24"
+            />
+        <item
+            android:id="@+id/id_item_statistical"
+            android:title="Thống kê"
+            android:icon="@drawable/baseline_app_registration_24"
+            />
+        <item
+            android:id="@+id/id_item_invoice"
+            android:title="Hoá đơn"
+            android:icon="@drawable/baseline_inventory_24"
+            />
+    </group>
+
+    <item android:title="Người dùng">
+        <menu>
+            <item
+                android:id="@+id/id_item_account"
+                android:title="Tài khoản"
+                android:icon="@drawable/baseline_account_circle_24"
+                />
+        </menu>
+    </item>
+
+</menu>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.SignInActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/style_ed"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
+            app:hintEnabled="false"
+            >
+            <EditText
+                android:id="@+id/signin_ed_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tên đăng nhập"
+                 />
+
+            <TextView
+                style="@style/style_tv"
+                android:layout_gravity="left"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="40sp"
+                android:text="Mật khẩu"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/signin_tv_error_username"
+            style="@style/style_tv"
+            android:layout_gravity="left"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"
+            android:text="Sai tên đăng nhập"
+            android:textColor="#F44336" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/style_ed"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
+            app:hintEnabled="false"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black">
+
+            <EditText
+                android:id="@+id/signin_ed_passw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mật khẩu"
+                android:inputType="textPassword" />
+
+            <TextView
+                style="@style/style_tv"
+                android:layout_height="3dp"
+                android:layout_gravity="left"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="40sp"
+                android:text="Mật khẩu"
+                android:textSize="20sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/signin_tv_error_passw"
+            style="@style/style_tv"
+            android:layout_gravity="left"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"
+            android:text="Sai mật khẩu"
+            android:textColor="#F44336"
+            />
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <CheckBox
+                android:id="@+id/chk_remember"
+                android:layout_height="30dp"
+                android:layout_width="30dp"
+                />
+            <TextView
+                style="@style/style_wrap"
+                android:layout_height="wrap_content"
+                android:text="Nhớ mật khẩu"
+                />
+            <TextView
+                android:id="@+id/signin_tv_forgot_passw"
+                style="@style/style_tv"
+                android:layout_marginLeft="60dp"
+                android:text="Quên mật khẩu ?"
+                android:textColor="#8BC34A" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/style_wrap"
+            android:layout_marginTop="40dp">
+
+            <Button
+                android:id="@+id/signin_btn_sgi"
+                style="@style/style_wrap"
+                android:text="Đăng nhập" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
