@@ -95,7 +95,6 @@ public class SignInActivity extends AppCompatActivity {
             tvErPassw.setVisibility(View.INVISIBLE);
         }
     }
-
     private void intID() {
         edUsername = findViewById(R.id.signin_ed_username);
         edPassw = findViewById(R.id.signin_ed_passw);
@@ -105,9 +104,8 @@ public class SignInActivity extends AppCompatActivity {
         tvErUsername = findViewById(R.id.signin_tv_error_username);
         chk_remember = findViewById(R.id.chk_remember);
     }
-
     private String validate(String username, String passw){
-        if(!username.equals("Binh") && !username.isEmpty())
+        if(!username.equals("admin") && !username.isEmpty())
             return "error_username";
         if(!passw.equals("123") && !passw.isEmpty())
             return "error_passw";

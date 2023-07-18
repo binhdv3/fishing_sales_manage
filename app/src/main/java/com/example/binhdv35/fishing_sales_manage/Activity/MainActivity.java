@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,8 @@ import com.example.binhdv35.fishing_sales_manage.R;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    public static final String TAG = MainActivity.class.getSimpleName();
 
     private NavigationView navigationView;
     private Toolbar toolbar;
@@ -127,5 +130,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.id_frameLayout,fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG,"          / ＞　 フ\n" +
+                       "         | 　_　_| \n" +
+                       "        /` ミ__^ノ        \n" +
+                       "       /　　　　 |         ?\n" +
+                       "      /　 ヽ　　 ﾉ          ╱|、\n" +
+                       "    /　　 |　|　|         (˚ˎ 。7 \n" +
+                       "／￣|　　 |　|　|          |、˜〵\n" +
+                       "(￣ヽ＿_  ヽ_)__)         じしˍ,)ノ\n" +
+                        "＼二)");
     }
 }
