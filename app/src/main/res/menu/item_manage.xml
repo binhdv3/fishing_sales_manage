@@ -51,6 +51,11 @@
                 android:title="Tài khoản"
                 android:icon="@drawable/baseline_account_circle_24"
                 />
+            <item
+                android:id="@+id/id_item_sign_out"
+                android:title="Đăng xuất"
+                android:icon="@drawable/baseline_logout_24"
+                />
         </menu>
     </item>
 

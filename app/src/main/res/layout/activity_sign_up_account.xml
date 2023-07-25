@@ -5,21 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Activity.SignUpActivity">
-
-    <TextView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:text="Thông tin người dùng"
-        android:textSize="25sp"
-        android:gravity="center"/>
-
+    tools:context=".Activity.SignUpAccountActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Thông tin tài khoản"
+            android:textSize="25sp"
+            android:gravity="center"/>
+
         <com.google.android.material.textfield.TextInputLayout
             style="@style/style_ed"
             android:layout_marginLeft="15dp"
@@ -28,10 +27,10 @@
             app:hintEnabled="false"
             >
             <EditText
-                android:id="@+id/signup_ed_username"
+                android:id="@+id/signup_ac_ed_account_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Tên người dùng"
+                android:hint="Tên đăng nhập"
                 />
 
             <TextView
@@ -48,16 +47,19 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="15dp"
             app:hintEnabled="false"
-            >
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black">
+
             <EditText
-                android:id="@+id/signup_ed_adress"
+                android:id="@+id/signup_ac_ed_account_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Đại chỉ"
-                />
+                android:hint="Mật khẩu"
+                android:inputType="textPassword" />
 
             <TextView
                 style="@style/style_tv"
+                android:layout_height="3dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="60dp"
                 android:layout_marginTop="40sp"
@@ -69,72 +71,41 @@
             android:layout_marginTop="30dp"
             android:layout_marginRight="15dp"
             app:hintEnabled="false"
-            >
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black">
+
             <EditText
-                android:id="@+id/signup_ed_phone_number"
+                android:id="@+id/signup_ac_ed_account_repass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Số điện thoại"
-                android:inputType="number"
-                />
+                android:hint="Xác nhận mật khẩu"
+                android:inputType="textPassword" />
 
             <TextView
                 style="@style/style_tv"
+                android:layout_height="3dp"
                 android:layout_gravity="left"
                 android:layout_marginLeft="60dp"
                 android:layout_marginTop="40sp"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/style_ed"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="15dp"
-            app:hintEnabled="false"
-            >
-            <EditText
-                android:id="@+id/signup_ed_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Email"
-                />
-
-            <TextView
-                style="@style/style_tv"
-                android:layout_gravity="left"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="40sp"
-                android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/style_ed"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="15dp"
-            app:hintEnabled="false"
-            >
-            <EditText
-                android:id="@+id/signup_ed_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Ảnh người dùng"
-                />
-
-            <TextView
-                style="@style/style_tv"
-                android:layout_gravity="left"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="40sp"
-                android:textSize="20sp" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/signup_tv_error_repassw"
+            style="@style/style_tv"
+            android:layout_gravity="left"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="10dp"
+            android:text="Xác nhận mật khẩu không thành công"
+            android:textColor="#F44336"
+            />
         <LinearLayout
             style="@style/style_wrap"
             android:layout_marginTop="40dp">
+
             <Button
-                android:id="@+id/signup_btn_next"
+                android:id="@+id/signup_ac_btn_up"
                 style="@style/style_wrap"
-                android:text="Đi tới trang kế tiếp" />
+                android:text="Đăng kí" />
         </LinearLayout>
     </LinearLayout>
-
 </LinearLayout>

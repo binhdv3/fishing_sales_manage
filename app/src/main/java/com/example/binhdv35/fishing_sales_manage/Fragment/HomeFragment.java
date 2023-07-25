@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +20,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.binhdv35.fishing_sales_manage.R;
 import com.example.binhdv35.fishing_sales_manage.adapter.ProductAdapter;
 import com.example.binhdv35.fishing_sales_manage.app.RequestQueueController;
-import com.example.binhdv35.fishing_sales_manage.app.URLJson;
+import com.example.binhdv35.fishing_sales_manage.contacts.URLJson;
 import com.example.binhdv35.fishing_sales_manage.model.Product;
-import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -68,12 +66,18 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initUi(view);
         settingPDialog();
-        makeProductRequest();
         productList = new ArrayList<>();
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
         productAdapter = new ProductAdapter(productList,getContext());
         rcv_product.setLayoutManager(gridLayoutManager);
         rcv_product.setAdapter(productAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        productList.clear();
+        makeProductRequest();
     }
 
     private void settingPDialog() {
@@ -99,11 +103,10 @@ public class HomeFragment extends Fragment {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Log.d("moew----", response.toString()); // dữ liệu trả về
+//                        Log.d("response", response.toString()); // dữ liệu trả về
 
                         try {
                             for (int i = 0; i < response.length() ; i++) {
-
                                 JSONObject product = (JSONObject) response.get(i);
                                 String id = product.getString("_id");
                                 String name = product.getString("name");
@@ -111,6 +114,7 @@ public class HomeFragment extends Fragment {
                                 String image = product.getString("image");
                                 String color = product.getString("color");
                                 String note = product.getString("note");
+
                                 productList.add(new Product(id,name,image,color,note,price));
                             }
 
@@ -123,7 +127,6 @@ public class HomeFragment extends Fragment {
                                     Toast.LENGTH_SHORT).show();
                         }
                         hidePDialog();
-
                     }
                 }, new Response.ErrorListener() {
             @Override

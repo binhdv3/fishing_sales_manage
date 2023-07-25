@@ -109,8 +109,5 @@
                 style="@style/style_wrap"
                 android:text="Đăng nhập" />
         </LinearLayout>
-
     </LinearLayout>
-
-
 </RelativeLayout>

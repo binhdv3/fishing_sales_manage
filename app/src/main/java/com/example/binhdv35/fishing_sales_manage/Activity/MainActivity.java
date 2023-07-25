@@ -1,22 +1,22 @@
 package com.example.binhdv35.fishing_sales_manage.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.binhdv35.fishing_sales_manage.Fragment.AccountFragment;
 import com.example.binhdv35.fishing_sales_manage.Fragment.CartFragment;
@@ -24,13 +24,13 @@ import com.example.binhdv35.fishing_sales_manage.Fragment.ChatFragment;
 import com.example.binhdv35.fishing_sales_manage.Fragment.DiscountFragment;
 import com.example.binhdv35.fishing_sales_manage.Fragment.HistoryFragment;
 import com.example.binhdv35.fishing_sales_manage.Fragment.HomeFragment;
-import com.example.binhdv35.fishing_sales_manage.Fragment.InvoiceFragment;
 import com.example.binhdv35.fishing_sales_manage.Fragment.ProductManageFragment;
 import com.example.binhdv35.fishing_sales_manage.Fragment.StatisticalFragment;
 import com.example.binhdv35.fishing_sales_manage.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements
+        NavigationView.OnNavigationItemSelectedListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initID();
+        initID(); //anh xa
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         replaceFragment(HomeFragment.newInstance());// chuyển giao diện qua màn hình home
 
     }
+
     //----Phân quyền-----------------------
     private void decentralization() {
         intent = getIntent();
@@ -116,9 +117,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             replaceFragment(ProductManageFragment.newInstance());
         }else if (id == R.id.id_item_statistical) { //thống kê
             replaceFragment(StatisticalFragment.newInstance());
-        }else if (id == R.id.id_item_invoice) { //thống kê
+        }else if (id == R.id.id_item_invoice) { //hoá đơn
             replaceFragment(StatisticalFragment.newInstance());
-        }else { //Hoá đơn
+        } else if (id == R.id.id_item_sign_out) { //đăng xuất
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("Đăng xuất");
+            builder.setMessage("Bạn có muốn đăng xuất không?");
+            builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(MainActivity.this, SignInUpActivity.class);
+                    startActivity(intent);
+                    HomeFragment.productList.clear();
+                    Toast.makeText(MainActivity.this,
+                            "Đăng xuất thành công!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            });
+
+            builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+            builder.show();
+        } else { //tài khoản
             replaceFragment(AccountFragment.newInstance());
         }
 

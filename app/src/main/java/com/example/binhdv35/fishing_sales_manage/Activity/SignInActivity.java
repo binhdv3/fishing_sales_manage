@@ -2,6 +2,7 @@ package com.example.binhdv35.fishing_sales_manage.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,7 +13,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.binhdv35.fishing_sales_manage.R;
+import com.example.binhdv35.fishing_sales_manage.app.RequestQueueController;
+import com.example.binhdv35.fishing_sales_manage.contacts.URLJson;
+import com.example.binhdv35.fishing_sales_manage.model.Account;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.List;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -21,21 +33,76 @@ public class SignInActivity extends AppCompatActivity {
     private TextView tvForgotPassw, tvErUsername, tvErPassw;
     private CheckBox chk_remember;
     private SharedPreferences preferences;
-
+    private ProgressDialog progressDialog;
+    private List<Account> accountList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
-
         intID();
+        settingPDialog();
+        getDataAccount();
+        accountList = Account.accountList;
         preferences = getSharedPreferences("USER_FILE", MODE_PRIVATE);
         btnSnI.setOnClickListener(v -> {
             String username = edUsername.getText().toString().trim();
             String passw = edPassw.getText().toString().trim();
             reSetVisibale(false);
             checkAccount(username, passw);
-
         });
+    }
+
+    private void settingPDialog() {
+        progressDialog = new ProgressDialog(SignInActivity.this);
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setCancelable(false);
+    }
+    private void showPDialog() {
+        if (!progressDialog.isShowing()){
+            progressDialog.show();
+        }
+    }
+
+    private void hidePDialog(){
+        if (progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+    }
+
+
+    private void getDataAccount() {
+        showPDialog();
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URLJson.KEY_GET_ACCOUNT,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            for (int i = 0; i < response.length() ; i++) {
+                                JSONObject account = (JSONObject) response.get(i);
+                                String id = account.getString("_id");
+                                String id_customer = account.getString("id_customer");
+                                String password = account.getString("password");
+                                String account_name = account.getString("account_name");
+                                Account.accountList.add(
+                                        new Account(id,account_name,password,id_customer));
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            Toast.makeText(SignInActivity.this, "Error" + e.getMessage(),
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        hidePDialog();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(SignInActivity.this, "Error" + error.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+                hidePDialog();
+            }
+        });
+
+        RequestQueueController.getInstance().addToRequestQueue(jsonArrayRequest);
     }
 
     private void checkAccount(String username, String passw) {
@@ -52,14 +119,34 @@ public class SignInActivity extends AppCompatActivity {
         } else if (validate(username,passw).equals("empty_passw")) {
             tvErPassw.setVisibility(View.VISIBLE);
             tvErPassw.setText("Không được để trống");
-        } else {
+        } else if(validate(username,passw).equals("successfully")){
             //Đăng nhập thành công-----------------------
+            Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, MainActivity.class);
             writePrefer(username,passw, chk_remember.isChecked());
             intent.putExtra("USER_NAME", username);
             startActivity(intent);
             finish();
         }
+    }
+
+    //validate----------------------
+    private String validate(String username, String passw){
+        String result="";
+        for (int i=0; i < accountList.size(); i++){
+            Account account = accountList.get(i);
+            if(!username.equals(account.getAccountName()) && !username.isEmpty())
+                result = "error_username";
+            if(!passw.equals(account.getPassWord()) && !passw.isEmpty())
+                result = "error_passw";
+            if(username.equals(account.getAccountName()) && passw.equals(account.getPassWord()))
+                return "successfully";
+        }
+        if(username.isEmpty())
+            return "empty_username";
+        if (passw.isEmpty())
+            return "empty_passw";
+        return result; //khônh có lỗi nào
     }
 
     //preferences------------
@@ -83,8 +170,8 @@ public class SignInActivity extends AppCompatActivity {
             edPassw.setText(strPassW);
         }
     }
-    //--------------
 
+    //--------------
     private void reSetVisibale(boolean tf) {
         if(tf == true){
             tvErPassw.setVisibility(View.VISIBLE);
@@ -95,6 +182,7 @@ public class SignInActivity extends AppCompatActivity {
             tvErPassw.setVisibility(View.INVISIBLE);
         }
     }
+
     private void intID() {
         edUsername = findViewById(R.id.signin_ed_username);
         edPassw = findViewById(R.id.signin_ed_passw);
@@ -103,18 +191,6 @@ public class SignInActivity extends AppCompatActivity {
         tvErPassw = findViewById(R.id.signin_tv_error_passw);
         tvErUsername = findViewById(R.id.signin_tv_error_username);
         chk_remember = findViewById(R.id.chk_remember);
-    }
-    private String validate(String username, String passw){
-        if(!username.equals("admin") && !username.isEmpty())
-            return "error_username";
-        if(!passw.equals("123") && !passw.isEmpty())
-            return "error_passw";
-        if(username.isEmpty())
-            return "empty_username";
-        if (passw.isEmpty())
-            return "empty_passw";
-
-        return "no_error"; //khônh có lỗi nào
     }
 
     @Override

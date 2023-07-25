@@ -5,11 +5,60 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.AccountFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Account"
-        android:textSize="50sp"/>
-
+    <LinearLayout
+        style="@style/style_match"
+        android:orientation="vertical"
+        android:paddingTop="10dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            >
+            <ImageView
+                android:id="@+id/account_image"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:background="@drawable/img"
+                />
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                >
+                <TextView
+                    android:id="@+id/account_tv_account_name"
+                    style="@style/style_tv"
+                    android:layout_marginTop="10dp"
+                    android:text="Tên tài khoản"
+                    />
+                <TextView
+                    android:id="@+id/account_tv_user_name"
+                    style="@style/style_tv"
+                    android:text="Tên người dùng"
+                    android:layout_marginTop="10dp"
+                    />
+                <TextView
+                    android:id="@+id/account_tv_adress"
+                    style="@style/style_tv"
+                    android:text="Địa chỉ"
+                    android:layout_marginTop="10dp"
+                    />
+                <TextView
+                    android:id="@+id/account_tv_phone_number"
+                    style="@style/style_tv"
+                    android:text="Số điện thoại"
+                    android:layout_marginTop="10dp"
+                    />
+                <TextView
+                    android:id="@+id/account_tv_email"
+                    style="@style/style_tv"
+                    android:text="Email"
+                    android:layout_marginTop="10dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 </FrameLayout>

@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".app.RequestQueueController"
@@ -17,6 +19,9 @@
         android:theme="@style/Theme.Fishing_sales_manage"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".Activity.SignUpAccountActivity"
+            android:exported="false" />
         <activity
             android:name=".Activity.ProductDetailActivity"
             android:exported="false" />

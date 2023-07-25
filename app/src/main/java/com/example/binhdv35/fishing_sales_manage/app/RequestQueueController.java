@@ -21,6 +21,8 @@ public class RequestQueueController extends Application {
         mIntace = this;
     }
 
+
+
     public static synchronized RequestQueueController getInstance(){
         return mIntace;
     }

@@ -1,6 +1,5 @@
 package com.example.binhdv35.fishing_sales_manage.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,17 +18,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.binhdv35.fishing_sales_manage.Activity.MainActivity;
-import com.example.binhdv35.fishing_sales_manage.Activity.ProductDetailActivity;
 import com.example.binhdv35.fishing_sales_manage.R;
 import com.example.binhdv35.fishing_sales_manage.app.RequestQueueController;
-import com.example.binhdv35.fishing_sales_manage.app.URLJson;
-import com.google.gson.JsonObject;
+import com.example.binhdv35.fishing_sales_manage.contacts.URLJson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.jar.JarException;
 
 /**
  * A simple {@link Fragment} subclass.

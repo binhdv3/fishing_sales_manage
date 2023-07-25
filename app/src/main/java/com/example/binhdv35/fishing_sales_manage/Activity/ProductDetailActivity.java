@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.example.binhdv35.fishing_sales_manage.Fragment.HomeFragment;
 import com.example.binhdv35.fishing_sales_manage.R;
 import com.example.binhdv35.fishing_sales_manage.app.RequestQueueController;
-import com.example.binhdv35.fishing_sales_manage.app.URLJson;
+import com.example.binhdv35.fishing_sales_manage.contacts.URLJson;
 import com.example.binhdv35.fishing_sales_manage.model.Product;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.squareup.picasso.Picasso;
@@ -92,6 +91,7 @@ public class ProductDetailActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
+
             String url = URLJson.KEY_PUT_PRODUCT + product.getId(); //url put -----------------
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, url, productJson,
@@ -104,17 +104,17 @@ public class ProductDetailActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Log.d("json_error" , error.getMessage());
+//                            Log.d("json_error" , error.getMessage());
                         }
                     }
             );
             //cập nhật thành công
             if (validateEdt(name, image, price,color,note) == true){
                 RequestQueueController.getInstance().addToRequestQueue(request);
-                Toast.makeText(ProductDetailActivity.this, "Delete succseccfully!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductDetailActivity.this, "Update succseccfully!",
+                        Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ProductDetailActivity.this, MainActivity.class);
                 startActivity(intent);
-                finish();
             }else {
                 Toast.makeText(this, "Không để trông các ô!", Toast.LENGTH_SHORT).show();
             }
