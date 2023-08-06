@@ -60,7 +60,7 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewholder
     @Override
     public void onBindViewHolder(@NonNull OderViewholder holder, int position) {
         Oder oder = oderList.get(position);
-//        Customer customer = customerList.get(position);
+
         if(oder == null){
             return;
         }
@@ -78,12 +78,18 @@ public class OderAdapter extends RecyclerView.Adapter<OderAdapter.OderViewholder
                     holder.tvPrice.setText("Tổng đơn hàng: "+decimalFormat.format(oder.getTotal_amount()));
                     holder.tvQuantity.setText("số lượng: "+oder.getQuantity());
                     holder.tvDate.setText(oder.getDate());
-                    if (SignInActivity.USERNAME_.equals("admin")){
-                        holder.tvNameCus.setVisibility(View.VISIBLE);
-//                        holder.tvNameCus.setText("Người dùng: "+customer.getName());
-                    }else {
-                        holder.tvNameCus.setVisibility(View.INVISIBLE);
+                    for (int j = 0; j <customerList.size() ; j++) {
+                        Customer customer = customerList.get(j);
+                        if (oder.getIdCustomer().equals(customer.getId())){
+                            if (SignInActivity.USERNAME_.equals("admin")){
+                                holder.tvNameCus.setVisibility(View.VISIBLE);
+                                holder.tvNameCus.setText("Người dùng: "+customer.getName());
+                            }else {
+                                holder.tvNameCus.setVisibility(View.INVISIBLE);
+                            }
+                        }
                     }
+
                     break;
                 }
             }
