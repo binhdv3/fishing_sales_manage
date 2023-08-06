@@ -59,9 +59,10 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     //----Phân quyền-----------------------
+    public static String USER_NAME="";
     private void decentralization() {
         intent = getIntent();
-        String USER_NAME = intent.getStringExtra("USER_NAME");
+        USER_NAME = intent.getStringExtra("USER_NAME");
         if(USER_NAME !=null)
         {
             if (USER_NAME.equalsIgnoreCase("admin"))
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements
                 setVisibleFromID(R.id.id_item_product_management,true);//quan ly san pham-admin
                 setVisibleFromID(R.id.id_item_statistical,true);// thong ke-admin
                 setVisibleFromID(R.id.id_item_invoice,true);// hoa don-admin
+                setVisibleFromID(R.id.id_item_cart, false);
             }else {
                 setVisibleFromID(R.id.id_item_product_management,false);//quan ly san pham-admin
                 setVisibleFromID(R.id.id_item_statistical,false);// thong ke-admin

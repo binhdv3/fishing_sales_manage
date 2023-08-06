@@ -69,6 +69,7 @@ public class SignInActivity extends AppCompatActivity {
         }
     }
 
+    public static String USERNAME_="";
 
     private void getDataAccount() {
         showPDialog();
@@ -125,11 +126,14 @@ public class SignInActivity extends AppCompatActivity {
             Intent intent = new Intent(this, MainActivity.class);
             writePrefer(username,passw, chk_remember.isChecked());
             intent.putExtra("USER_NAME", username);
+            USERNAME_ = username;
             startActivity(intent);
             finish();
         }
     }
 
+
+    public static String ID_CUSTOMER = "";
     //validate----------------------
     private String validate(String username, String passw){
         String result="";
@@ -139,8 +143,10 @@ public class SignInActivity extends AppCompatActivity {
                 result = "error_username";
             if(!passw.equals(account.getPassWord()) && !passw.isEmpty())
                 result = "error_passw";
-            if(username.equals(account.getAccountName()) && passw.equals(account.getPassWord()))
+            if(username.equals(account.getAccountName()) && passw.equals(account.getPassWord())){
+                ID_CUSTOMER = account.getIdCustomer();
                 return "successfully";
+            }
         }
         if(username.isEmpty())
             return "empty_username";

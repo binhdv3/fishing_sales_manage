@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -31,13 +32,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ProductDetailActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ImageView imgProduct;
     private TextView tvNameProduct, tvPriceProduct, tvNoteProduct;
-    private Button btnDelete, btnEdit;
+    private Button btnDelete, btnEdit, btnAddToCart,btnBuyNow;
     private int postion;
 
     @Override
@@ -46,12 +49,126 @@ public class ProductDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_detail);
         initUi();
         getInfoProduct();
-        btnDelete.setOnClickListener(v -> {
+        btnDelete.setOnClickListener(v -> {  //xoá sản phẩm cho admin
             makeDeleteProduct();
         });
-        btnEdit.setOnClickListener(v -> {
+        btnEdit.setOnClickListener(v -> {  //sửa sản phẩm cho admin
             makeEditProduct();
         });
+        btnAddToCart.setOnClickListener(v -> { //Thêm sản phẩm vào giỏ hàng
+            addTocCart();
+        });
+        btnBuyNow.setOnClickListener(v -> {
+            buyNow();
+        });
+
+        decentralization();//phân quyền
+    }
+
+    private void buyNow() {
+
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
+        bottomSheetDialog.setContentView(R.layout.bottom_sheet_oder);//set layout cho dialog
+        EditText edQuantity = bottomSheetDialog.findViewById(R.id.oder_ed_quantity);
+        Button btnOder = bottomSheetDialog.findViewById(R.id.oder_btn_oder);
+        Button btnCancel = bottomSheetDialog.findViewById(R.id.oder_btn_cancel);
+
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String currentDate = sdf.format(date); // lâý ngày hiện tại
+
+        btnOder.setOnClickListener(v -> {
+            JSONObject oderJson = new JSONObject();
+            try {
+                oderJson.put("id_customer" , SignInActivity.ID_CUSTOMER);
+                oderJson.put("id_product" , HomeFragment.productList.get(postion).getId());
+                oderJson.put("oder_date" , currentDate);
+                oderJson.put("total_amount" ,  Integer.parseInt(edQuantity.getText().toString().trim())
+                        * HomeFragment.productList.get(postion).getPrice());
+                oderJson.put("quantity", Integer.parseInt(edQuantity.getText().toString().trim()));
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URLJson.KEY_POST_ODER, oderJson,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                int success = response.getInt("success");
+                                String message = response.getString("message");
+                                Toast.makeText(ProductDetailActivity.this, ""+message, Toast.LENGTH_SHORT).show();
+                                bottomSheetDialog.dismiss();
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.d("json_error" , error.getMessage());
+                        }
+                    }
+            );
+
+            RequestQueueController.getInstance().addToRequestQueue(request);
+        });
+
+
+        btnCancel.setOnClickListener(v -> {
+            bottomSheetDialog.dismiss();
+        });
+
+        bottomSheetDialog.show();
+    }
+
+    private void addTocCart() {
+        JSONObject cartJson = new JSONObject();
+        try {
+            cartJson.put("id_customer" , SignInActivity.ID_CUSTOMER);
+            cartJson.put("id_product" , HomeFragment.productList.get(postion).getId());
+            cartJson.put("quantity", 1);
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URLJson.KEY_POST_CART, cartJson,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            int success = response.getInt("success");
+                            String message = response.getString("message");
+                            Toast.makeText(ProductDetailActivity.this, ""+message, Toast.LENGTH_SHORT).show();
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("json_error" , error.getMessage());
+                    }
+                }
+        );
+
+        RequestQueueController.getInstance().addToRequestQueue(request);
+    }
+
+    private void decentralization() {
+        if (MainActivity.USER_NAME.equals("admin")){
+            btnAddToCart.setVisibility(View.INVISIBLE);
+            btnBuyNow.setVisibility(View.INVISIBLE);
+        }else {
+            btnBuyNow.setVisibility(View.VISIBLE);
+            btnAddToCart.setVisibility(View.VISIBLE);
+            btnEdit.setVisibility(View.INVISIBLE);
+            btnDelete.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void makeEditProduct() {
@@ -203,5 +320,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         tvNoteProduct = findViewById(R.id.detail_tv_note_product);
         btnDelete = findViewById(R.id.detail_btn_delete_product);
         btnEdit = findViewById(R.id.detail_btn_edit_product);
+        btnAddToCart = findViewById(R.id.detail_btn_addtocart);
+        btnBuyNow = findViewById(R.id.detail_btn_buynow);
     }
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="450dp"
+    android:gravity="center"
+    >
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/style_ed"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        >
+        <EditText
+            android:id="@+id/oder_ed_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Nhập số lượng"
+            android:textSize="20dp"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        >
+        <Button
+            android:id="@+id/oder_btn_oder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Oder"
+            />
+        <Button
+            android:layout_marginLeft="20dp"
+            android:id="@+id/oder_btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Cancel"
+            />
+    </LinearLayout>
+</LinearLayout>

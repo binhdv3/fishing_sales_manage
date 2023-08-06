@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.HistoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcv_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="history"
-        android:textSize="50sp"/>
+        />
 
 </FrameLayout>

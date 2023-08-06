@@ -3,7 +3,7 @@ package com.example.binhdv35.fishing_sales_manage.model;
 public class OderItem {
 
     private String id, idOder, idProduct;
-    private int  quantity, subtutol;
+    private int  quantity;
 
     public String getId() {
         return id;
@@ -35,13 +35,5 @@ public class OderItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public int getSubtutol() {
-        return subtutol;
-    }
-
-    public void setSubtutol(int subtutol) {
-        this.subtutol = subtutol;
     }
 }

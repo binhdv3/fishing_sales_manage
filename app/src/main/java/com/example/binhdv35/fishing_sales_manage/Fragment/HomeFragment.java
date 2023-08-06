@@ -104,7 +104,6 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onResponse(JSONArray response) {
 //                        Log.d("response", response.toString()); // dữ liệu trả về
-
                         try {
                             for (int i = 0; i < response.length() ; i++) {
                                 JSONObject product = (JSONObject) response.get(i);
